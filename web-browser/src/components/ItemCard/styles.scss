@@ -1,0 +1,36 @@
+.ItemCard
+{
+  margin: 0px;
+  padding: 16px;
+  display: flex;
+  .imgContent
+  {
+    width: 180px;
+    height: 180px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 4px;
+  }
+  .infoContent
+  {
+    text-align: start;
+    margin: 0px 16px;
+    .price
+    {
+      font-size: 24px;
+      margin: 16px 0px 32px;
+    }
+    p, h2{
+      font-weight: 400;
+      margin: 0px;
+      font-size: 18px;
+    }
+  }
+}
+
+hr{
+  border: none;
+  border-bottom: 1px solid #EEEEEE;
+  width: 96%;
+}

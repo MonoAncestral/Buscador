@@ -1,0 +1,62 @@
+.Detail
+{
+  display: flex;
+  .itemImage
+  {
+    display: flex;
+    justify-content: center;
+    width: 680px;
+    min-width: 680px;
+    img{
+      max-width: 600px;
+    }
+  }
+  .itemInfo
+  {
+    width: -webkit-fill-available;
+    margin-right: 32px;
+    text-align: start;
+    .itemStatus{
+      font-size: 14px;
+      margin-top: 32px;
+      margin-bottom: 16px;
+      line-height: 14px;
+    }
+    .itemTitle{
+      font-size: 24px;
+      margin: 0px;
+      line-height: 24px;
+    }
+    .itemPrice{
+      font-size: 46px;
+      margin: 32px 0px;
+      line-height: 46px;
+    }
+    button{
+      background-color: #3483FA;
+      border: none;
+      color: white;
+      border-radius: 4px;
+      padding: 10px;
+      width: 100%;
+      cursor: pointer;
+    }
+  }
+}
+.itemDescription
+{
+  width: 680px;
+  text-align: start;
+  margin-left: 32px;
+  h3{
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 28px;
+    margin: 0px;
+  }
+  p{
+    font-size: 16px;
+    padding: 32px 0px;
+    margin: 0px;
+  }
+}
