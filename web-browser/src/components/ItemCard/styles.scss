@@ -12,6 +12,7 @@
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 4px;
+    cursor: pointer;
   }
   .infoContent
   {
@@ -29,6 +30,10 @@
       font-weight: 400;
       margin: 0px;
       font-size: 18px;
+    }
+    h2
+    {
+      cursor: pointer;
     }
   }
   .place{

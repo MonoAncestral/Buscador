@@ -1,15 +1,21 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import './styles.scss';
 
 declare interface item {
   data: IResult;
+  selectedItem: (itemId: string) => void;
+  setContentStatus: (status: number) => void;
 }
 
-const ItemCard: React.FC<item> = ({ data }) => {
+const ItemCard: React.FC<item> = ({ data, selectedItem, setContentStatus }) => {
+  const onClickItem = () => {
+    selectedItem(data.id);
+    setContentStatus(2);
+  };
   return (
     <div>
       <div className="ItemCard">
-        <div className="imgContent" style={{ backgroundImage: `url(${data.thumbnail})` }}></div>
+        <div onClick={onClickItem} className="imgContent" style={{ backgroundImage: `url(${data.thumbnail})` }}></div>
         <div className="infoContent">
           <p className="price">
             ${' '}
@@ -18,7 +24,7 @@ const ItemCard: React.FC<item> = ({ data }) => {
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
           </p>
-          <h2>{data.title}</h2>
+          <h2 onClick={onClickItem}>{data.title}</h2>
         </div>
         <div className="place">
           <p>{data.address.state_name}</p>
