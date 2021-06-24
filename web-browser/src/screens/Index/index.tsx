@@ -18,7 +18,6 @@ const Back: React.FC = () => {
     }
   };
   React.useEffect(() => {
-    console.log(categorieId);
     if (categorieId !== '') {
       getCategories(categorieId).then(() => {});
     }

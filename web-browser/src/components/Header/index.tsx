@@ -1,7 +1,6 @@
 import React from 'react';
 import './styles.scss';
 import logo from '../../assets/logo.png';
-import { GetItemList } from '../../APICalls/itemApiCall';
 import searchLogo from '../../assets/searchLogo.png';
 import { useHistory } from 'react-router-dom';
 
