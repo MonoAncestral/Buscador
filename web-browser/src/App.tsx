@@ -1,16 +1,13 @@
-import './App.css';
-import Header from './components/Header'
-import Back from './screens/Back';
+import "./App.css";
+import React from "react";
+import Index from "./screens/Index";
 
-function App() {
-
+const App: React.FC = () => {
   return (
     <div className="App">
-      <Header></Header> 
-<Back></Back>
+      <Index />
     </div>
-
   );
-}
+};
 
 export default App;
