@@ -17,6 +17,7 @@ declare interface IItemDetail {
   thumbnail: string;
   sold_quantity: number;
   price: number;
+  category_id;
   attributes: IAtributes[];
 }
 

@@ -1,21 +1,18 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './styles.scss';
 
 declare interface item {
   data: IResult;
-  selectedItem: (itemId: string) => void;
-  setContentStatus: (status: number) => void;
 }
 
-const ItemCard: React.FC<item> = ({ data, selectedItem, setContentStatus }) => {
-  const onClickItem = () => {
-    selectedItem(data.id);
-    setContentStatus(2);
-  };
+const ItemCard: React.FC<item> = ({ data }) => {
   return (
     <div>
       <div className="ItemCard">
-        <div onClick={onClickItem} className="imgContent" style={{ backgroundImage: `url(${data.thumbnail})` }}></div>
+        <Link className="Link" to={`items/${data.id}`}>
+          <div className="imgContent" style={{ backgroundImage: `url(${data.thumbnail})` }}></div>
+        </Link>
         <div className="infoContent">
           <p className="price">
             ${' '}
@@ -24,7 +21,9 @@ const ItemCard: React.FC<item> = ({ data, selectedItem, setContentStatus }) => {
               .toString()
               .replace(/\B(?=(\d{3})+(?!\d))/g, '.')}
           </p>
-          <h2 onClick={onClickItem}>{data.title}</h2>
+          <Link className="Link" to={`items/${data.id}`}>
+            <h2>{data.title}</h2>
+          </Link>
         </div>
         <div className="place">
           <p>{data.address.state_name}</p>

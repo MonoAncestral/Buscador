@@ -1,38 +1,34 @@
 import React from 'react';
 import './styles.scss';
-import Card from '../../components/ItemCard';
 import Header from '../../components/Header';
 import Detail from '../../components/Detail';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Items from '../Items';
+import { CategoriesContext } from '../../context/provider';
 import { GetCategories } from '../../APICalls/categorieApiCall';
 
-const Back: React.FC = ({}) => {
-  const [data, setData] = React.useState<IProductList>();
-  const [contentStatus, setContentStatus] = React.useState<number>(0);
-  const [info, setInfo] = React.useState<IResult[]>();
-  const [categories, setCategories] = React.useState<ICategoriesList>();
-  const [selectedItem, setSelectedItem] = React.useState<string>('');
+const Back: React.FC = () => {
+  const { categories, setCategories } = React.useContext(CategoriesContext);
+  const { categorieId } = React.useContext(CategoriesContext);
 
-  const getCategories = async () => {
-    if (data !== undefined && data.results.length > 0) {
-      const categoriesList = await GetCategories(data.results[1].category_id);
-      if (categoriesList) {
-        setCategories(categoriesList);
-      }
+  const getCategories = async (category_id: string) => {
+    const categoriesList = await GetCategories(category_id);
+    if (categoriesList) {
+      setCategories(categoriesList);
     }
   };
-
   React.useEffect(() => {
-    if (data?.results) {
-      getCategories().then();
-      setInfo(data.results.slice(0, 4));
+    console.log(categorieId);
+    if (categorieId !== '') {
+      getCategories(categorieId).then(() => {});
     }
-  }, [data]);
+  }, [categorieId]);
 
   return (
-    <>
-      <Header setData={setData} setContentStatus={setContentStatus} />
+    <BrowserRouter>
+      <Header />
       <div className="back">
-        {categories && data && data?.results.length > 0 && (
+        {categories ? (
           <div className="Categories">
             {categories.path_from_root.map((value, key) =>
               key === categories.path_from_root.length - 1 ? (
@@ -42,20 +38,17 @@ const Back: React.FC = ({}) => {
               ),
             )}
           </div>
+        ) : (
+          <div className="Categories"></div>
         )}
-
-        <div className="Content">
-          {info && contentStatus === 1 && (
-            <>
-              {info.map((value, key) => (
-                <Card data={value} selectedItem={setSelectedItem} setContentStatus={setContentStatus} key={key} />
-              ))}
-            </>
-          )}
-          {selectedItem !== '' && contentStatus === 2 && <Detail itemId={selectedItem} />}
-        </div>
+        <Switch>
+          <div className="Content">
+            <Route exact path="/" component={Items} />
+            <Route exact path="/items/:id" component={Detail} />
+          </div>
+        </Switch>
       </div>
-    </>
+    </BrowserRouter>
   );
 };
 

@@ -1,19 +1,26 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { GetItemDescription, GetItemDetail } from '../../APICalls/itemApiCall';
+import { CategoriesContext } from '../../context/provider';
 import './styles.scss';
 
-declare interface detail {
-  itemId: string;
+interface IHistoryDetail {
+  id: string;
 }
-const Detail: React.FC<detail> = ({ itemId }) => {
+
+const Detail: React.FC = ({}) => {
   const [item, setItem] = React.useState<IItemDetail>();
   const [status, setStatus] = React.useState<string>();
   const [description, setDescription] = React.useState<string>('');
+  const { id: itemId } = useParams<IHistoryDetail>();
+  const { setCategorieId } = React.useContext(CategoriesContext);
 
   const getDetail = async () => {
     const data = await GetItemDetail(itemId);
     if (data !== undefined) {
       setItem(data);
+      setCategorieId(data.category_id);
+
       if (data.attributes !== undefined) {
         const result = data.attributes.filter((value) => value.id == 'ITEM_CONDITION');
         if (result !== undefined && result.length > 0 && result[0].values.length > 0) {
@@ -30,6 +37,7 @@ const Detail: React.FC<detail> = ({ itemId }) => {
   React.useEffect(() => {
     getDetail();
   }, []);
+
   return (
     <>
       <div className="Detail">

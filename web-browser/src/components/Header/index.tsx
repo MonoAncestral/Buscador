@@ -3,23 +3,16 @@ import './styles.scss';
 import logo from '../../assets/logo.png';
 import { GetItemList } from '../../APICalls/itemApiCall';
 import searchLogo from '../../assets/searchLogo.png';
+import { useHistory } from 'react-router-dom';
 
-interface ISearchInfo {
-  setData: (data: IProductList) => void;
-  setContentStatus: (status: number) => void;
-}
-
-const Header: React.FC<ISearchInfo> = ({ setData, setContentStatus }) => {
+const Header: React.FC = () => {
   const timeoutRef = React.useRef<any>(null);
   const [search, setSearch] = React.useState<string>('');
+  const history = useHistory();
 
   const onSearch = async () => {
     if (search !== '') {
-      const data = await GetItemList(search);
-      if (data !== undefined) {
-        setData(data);
-        setContentStatus(1);
-      }
+      history.push({ pathname: '/', search: 'items?search=' + search });
     }
   };
 
