@@ -8,11 +8,29 @@ const Header: React.FC = () => {
   const [search, setSearch] = React.useState<string>('');
   const history = useHistory();
 
+  /**
+   * onSearch
+   *
+   * @search {string} - estado que guarda lo que el usuario haya digitado en el input de búsqueda
+   *
+   * Esta función agrega a la página la sección de búsqueda (que automáticamente llamará
+   * a la API para buscar items) y le envía la cadena a buscar, es decir, la búsqueda del usuario.
+   */
   const onSearch = () => {
     if (search !== '') {
       history.push({ pathname: '/', search: 'items?search=' + search });
     }
   };
+
+  /**
+   * handleEnter
+   *
+   * @key {string} - tecla pulsada por el usuario en el input de búsqueda
+   *
+   * Es activada cuando el usuario presiona teclas en el input de búsqueda,
+   * si la tecla presionada es enter, llamará a la funcion onSearch para que
+   * se realice la búsqueda de artículos
+   */
 
   const handleEnter = (key: string) => {
     if (key === 'Enter') {

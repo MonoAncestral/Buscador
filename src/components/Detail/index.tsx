@@ -18,6 +18,35 @@ const Detail: React.FC = ({}) => {
   const { setCategorieId } = React.useContext(CategoriesContext);
   const history = useHistory();
 
+  /**
+   * getDetail
+   *
+   * @itemId {string} - Id del item solicitado por el usuario, que se obtiene de la url
+   * @status {string} - Estado del producto
+   * @data {Object} - Almacena el resultado de la API
+   * @item {Object} - La información del producto consultada desde la API
+   * @descriptionItem {Object} - el detalle del producto consultado desde la API
+   * @categorieId {string} - Id de la categoría, se le envía al contexto para que modifique
+   * el breadcrum según la categoría del item consultado.
+   * @loading {boolean} - Estado que indica si debe aparecer o no la pantalla de cargando
+   *
+   *
+   * Se inicia llamando a la api para traer el detalle del producto, enviando el id del item.
+   *
+   * Si el API nos trae información y no tiene ningún error, se le asigna al estado item y se
+   * le envía el id de la categoría al contexto.
+   *
+   * Para obtener el estado del producto (ej: nuevo/usado) se busca en attributes el objeto
+   * 'ITEM_CONDITION' en donde se almacena este valor y se le asigna al estado 'status'
+   *
+   * Se consulta la descripción del item a la API, en caso de obtener un valor, se le asigna
+   * al estado 'description', pero si no hay valor, se agrega uno por defecto y en ambos casos
+   * se desactiva la pantalla de loading.
+   *
+   * En caso de que no se consiga data, se envía a la pantalla 404 que indica que el artículo no
+   * se ha encontrado
+   */
+
   const getDetail = async () => {
     const data = await GetItemDetail(itemId);
     if (data !== undefined && data.error === undefined) {
@@ -42,6 +71,8 @@ const Detail: React.FC = ({}) => {
       history.replace({ pathname: '/404' });
     }
   };
+
+  //Se ejecuta getDetail al momento de montar este componente
 
   React.useEffect(() => {
     getDetail();
