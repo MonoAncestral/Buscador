@@ -12,7 +12,7 @@ const Items: React.FC = () => {
 
   React.useEffect(() => {
     if (history.location.search) {
-      GetItemList(history.location.search).then((data) => {
+      GetItemList(history.location.search.replace('items?search=', '')).then((data) => {
         if (data !== undefined) {
           setData(data);
         }
