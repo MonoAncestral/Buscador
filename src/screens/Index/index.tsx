@@ -2,6 +2,7 @@ import React from 'react';
 import './styles.scss';
 import Header from '../../components/Header';
 import Detail from '../../components/Detail';
+import notFound from '../../components/notFound';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Items from '../Items';
 import { CategoriesContext } from '../../context/provider';
@@ -40,12 +41,13 @@ const Back: React.FC = () => {
         ) : (
           <div className="Categories"></div>
         )}
-        <Switch>
-          <div className="Content">
+        <div className="Content">
+          <Switch>
             <Route exact path="/" component={Items} />
-            <Route exact path="/items/:id" component={Detail} />
-          </div>
-        </Switch>
+            <Route path="/items/:id" component={Detail} />
+            <Route component={notFound} />
+          </Switch>
+        </div>
       </div>
     </BrowserRouter>
   );

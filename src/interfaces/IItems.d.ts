@@ -29,6 +29,7 @@ declare interface IItemDetail {
   price: number;
   category_id;
   attributes: IAtributes[];
+  error: string | undefined;
 }
 
 declare interface IAtributes {

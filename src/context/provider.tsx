@@ -11,13 +11,13 @@ const contextDefaultValues: ContextCategories = {
 export const CategoriesContext = createContext<ContextCategories>(contextDefaultValues);
 
 const CategoriesProvider: FC = ({ children }) => {
-  const [categories, setCategories] = useState<ICategoriesList>();
+  const [categories, setCategories] = useState<ICategoriesList | undefined>();
   const [categorieId, setCategorieId] = useState<string>('');
 
   const changeCategoriesId = (id: string) => {
     setCategorieId(id);
   };
-  const changeCategorie = (categorie: ICategoriesList) => {
+  const changeCategorie = (categorie: ICategoriesList | undefined) => {
     setCategories(categorie);
   };
   return (

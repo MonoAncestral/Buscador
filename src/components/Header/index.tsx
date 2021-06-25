@@ -5,27 +5,21 @@ import searchLogo from '../../assets/searchLogo.png';
 import { useHistory } from 'react-router-dom';
 
 const Header: React.FC = () => {
-  const timeoutRef = React.useRef<any>(null);
   const [search, setSearch] = React.useState<string>('');
   const history = useHistory();
 
-  const onSearch = async () => {
+  const onSearch = () => {
     if (search !== '') {
       history.push({ pathname: '/', search: 'items?search=' + search });
     }
   };
 
-  React.useEffect(() => {
-    if (timeoutRef.current !== null) {
-      //Si hay un timeout ejecutándose y el usuario vuelve a crear otro (al escribir), se limpia
-      clearTimeout(timeoutRef.current);
-    }
-
-    timeoutRef.current = setTimeout(() => {
-      timeoutRef.current = null;
+  const handleEnter = (key: string) => {
+    if (key === 'Enter') {
       onSearch();
-    }, 400);
-  }, [search]);
+    }
+  };
+
   return (
     <div className="HeaderFather">
       <div className="HeaderContent">
@@ -35,6 +29,7 @@ const Header: React.FC = () => {
             placeholder="Nunca dejes de buscar"
             type="text"
             className="BrowserInput"
+            onKeyDown={(a) => handleEnter(a.key)}
             onChange={(value) => setSearch(value.target.value)}
           />
           <button onClick={onSearch}>
