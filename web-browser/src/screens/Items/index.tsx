@@ -22,7 +22,18 @@ const Items: React.FC = () => {
 
   React.useEffect(() => {
     if (data !== undefined && data?.results && data.results.length > 0) {
-      setCategorieId(data.results[0].category_id);
+      //en caso de que la API retorne el filtro más frecuente se le asigna ese al breadcrum
+      if (data.filters.length > 0) {
+        const result = data.filters.filter((value) => value.id == 'category');
+        if (result !== undefined && result.length > 0 && result[0].values.length > 0) {
+          setCategorieId(result[0].values[0].id);
+        }
+      }
+      //si la API no indica el filtro más común, se toma el del primer item de la  lista
+      else {
+        setCategorieId(data.results[0].category_id);
+      }
+
       setInfo(data.results.slice(0, 4));
     }
   }, [data]);

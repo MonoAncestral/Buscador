@@ -1,5 +1,6 @@
 declare interface IProductList {
   results: IResult[];
+  filters: IFilters[];
 }
 
 declare interface IResult {
@@ -9,6 +10,15 @@ declare interface IResult {
   category_id: string;
   thumbnail: string;
   address: { state_name: string };
+}
+
+declare interface IFilters {
+  id: string;
+  values: IFilterValues[];
+}
+
+declare interface IFilterValues {
+  id: string;
 }
 
 declare interface IItemDetail {
